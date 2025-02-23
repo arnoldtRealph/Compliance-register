@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="af">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compliance Register</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Compliance Register vir Lesbeplanning</h1>
+    </header>
+
+    <section id="department">
+        <h2>Wetenskappe Departement</h2>
+        <div class="department-buttons">
+            <button class="btn">Natuurwetenskappe</button>
+            <button class="btn">Lewenswetenskappe</button>
+            <button class="btn">Fisiese Wetenskappe</button>
+            <button class="btn">CAT</button>
+        </div>
+    </section>
+
+    <section id="vakke">
+        <table>
+            <thead>
+                <tr>
+                    <th>Vak</th>
+                    <th>Graad</th>
+                    <th>Opvoeder</th>
+                    <th>Lêer opgelaai</th>
+                    <th>Lesbeplanning Laaste Monitor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Natuurwetenskappe</td>
+                    <td>Gr. 9</td>
+                    <td>Juffrou P Koopman & S Erasmus</td>
+                    <td><input type="file" accept=".doc,.docx,.xls,.xlsx,.pdf" onchange="updateDate(this, 'natuurwet')"></td>
+                    <td id="natuurwet">Geen lêer opgelaai nie</td>
+                </tr>
+                <tr>
+                    <td>Lewenswetenskappe</td>
+                    <td>Gr. 10-12</td>
+                    <td>S Erasmus en L Lubbe</td>
+                    <td><input type="file" accept=".doc,.docx,.xls,.xlsx,.pdf" onchange="updateDate(this, 'lewe')"></td>
+                    <td id="lewe">Geen lêer opgelaai nie</td>
+                </tr>
+                <tr>
+                    <td>Fisiese Wetenskappe</td>
+                    <td>Gr. 10-12</td>
+                    <td>Juffrou L Lubbe & Juffrou TK Pieterse</td>
+                    <td><input type="file" accept=".doc,.docx,.xls,.xlsx,.pdf" onchange="updateDate(this, 'fisiese')"></td>
+                    <td id="fisiese">Geen lêer opgelaai nie</td>
+                </tr>
+                <tr>
+                    <td>CAT</td>
+                    <td>Gr. 10-12</td>
+                    <td>Mnr. C Farmer</td>
+                    <td><input type="file" accept=".doc,.docx,.xls,.xlsx,.pdf" onchange="updateDate(this, 'cat')"></td>
+                    <td id="cat">Geen lêer opgelaai nie</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Compliance Register | Webwerf ontwerp deur Mnr AR Visagie</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
