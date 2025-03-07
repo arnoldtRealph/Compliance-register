@@ -38,28 +38,28 @@
                     <td>Natuurwetenskappe</td>
                     <td>Gr. 9</td>
                     <td>Juffrou P Koopman & S Erasmus</td>
-                    <td><input type="file" accept=".doc,.docx,.xls,.xlsx,.pdf" onchange="updateDate(this, 'natuurwet')"></td>
+                    <td><input type="file" accept=".pdf,.doc,.docx,.xls,.xlsx" onchange="uploadFile(this, 'natuurwet')"></td>
                     <td id="natuurwet">Geen lêer opgelaai nie</td>
                 </tr>
                 <tr>
                     <td>Lewenswetenskappe</td>
                     <td>Gr. 10-12</td>
                     <td>S Erasmus en L Lubbe</td>
-                    <td><input type="file" accept=".doc,.docx,.xls,.xlsx,.pdf" onchange="updateDate(this, 'lewe')"></td>
+                    <td><input type="file" accept=".pdf,.doc,.docx,.xls,.xlsx" onchange="uploadFile(this, 'lewe')"></td>
                     <td id="lewe">Geen lêer opgelaai nie</td>
                 </tr>
                 <tr>
                     <td>Fisiese Wetenskappe</td>
                     <td>Gr. 10-12</td>
                     <td>Juffrou L Lubbe & Juffrou TK Pieterse</td>
-                    <td><input type="file" accept=".doc,.docx,.xls,.xlsx,.pdf" onchange="updateDate(this, 'fisiese')"></td>
+                    <td><input type="file" accept=".pdf,.doc,.docx,.xls,.xlsx" onchange="uploadFile(this, 'fisiese')"></td>
                     <td id="fisiese">Geen lêer opgelaai nie</td>
                 </tr>
                 <tr>
                     <td>CAT</td>
                     <td>Gr. 10-12</td>
                     <td>Mnr. C Farmer</td>
-                    <td><input type="file" accept=".doc,.docx,.xls,.xlsx,.pdf" onchange="updateDate(this, 'cat')"></td>
+                    <td><input type="file" accept=".pdf,.doc,.docx,.xls,.xlsx" onchange="uploadFile(this, 'cat')"></td>
                     <td id="cat">Geen lêer opgelaai nie</td>
                 </tr>
             </tbody>
@@ -70,10 +70,11 @@
         <p>&copy; 2025 Compliance Register | Webwerf ontwerp deur Mnr AR Visagie</p>
     </footer>
 
-    <!-- Firebase en script.js word laaste gelaai -->
+    <!-- Firebase -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
 
         const firebaseConfig = {
             apiKey: "JOU_API_KEY",
@@ -86,6 +87,7 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const storage = getStorage(app);
 
         // Voeg 'n nuwe les by Firestore
         async function voegLesBy() {
@@ -96,28 +98,31 @@
                     datum: new Date().toISOString(),
                     status: "Geplande Les"
                 });
-                console.log("Les suksesvol bygevoeg!");
+                alert("Les suksesvol bygevoeg!");
             } catch (e) {
                 console.error("Fout met byvoeging:", e);
+                alert("Kon nie les byvoeg nie.");
             }
         }
 
-        // Roep die funksie aan (vir toetsdoeleindes)
-        voegLesBy();
-    </script>
-
-    <script>
-        // Funksie om lêeroplaai se datum by te werk
-        function updateDate(inputElement, id) {
+        // Funksie om lêers na Firebase Storage op te laai
+        async function uploadFile(inputElement, vak) {
             if (inputElement.files.length > 0) {
-                document.getElementById(id).innerText = "Lêer opgelaai op " + new Date().toLocaleDateString();
-            } else {
-                document.getElementById(id).innerText = "Geen lêer opgelaai nie";
+                const file = inputElement.files[0];
+                const storageRef = ref(storage, `lesbeplanning/${vak}/${file.name}`);
+
+                try {
+                    await uploadBytes(storageRef, file);
+                    const downloadURL = await getDownloadURL(storageRef);
+                    document.getElementById(vak).innerHTML = `<a href="${downloadURL}" target="_blank">Lêer afgelaai: ${file.name}</a>`;
+                    alert("Lêer suksesvol opgelaai!");
+                } catch (error) {
+                    console.error("Fout met oplaaI: ", error);
+                    alert("Lêer kon nie opgelaai word nie.");
+                }
             }
         }
     </script>
-
-    <script src="script.js"></script>
 
 </body>
 </html>
