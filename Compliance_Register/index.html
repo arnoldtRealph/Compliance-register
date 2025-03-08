@@ -12,127 +12,92 @@
         <h1>Compliance Register vir Lesbeplanning</h1>
     </header>
 
-    <section id="department">
-        <h2>Wetenskappe Departement</h2>
-        <div class="department-buttons">
-            <button class="btn">Natuurwetenskappe</button>
-            <button class="btn">Lewenswetenskappe</button>
-            <button class="btn">Fisiese Wetenskappe</button>
-            <button class="btn">CAT</button>
-        </div>
-    </section>
+    <main>
+        <section id="department">
+            <h2>Wetenskappe Departement</h2>
+            <div class="department-buttons">
+                <button class="btn">Natuurwetenskappe</button>
+                <button class="btn">Lewenswetenskappe</button>
+                <button class="btn">Fisiese Wetenskappe</button>
+                <button class="btn">CAT</button>
+                <button class="btn">Tegniese Wetenskappe</button>
+            </div>
+        </section>
 
-    <section id="vakke">
-        <table>
-            <thead>
-                <tr>
-                    <th>Vak</th>
-                    <th>Graad</th>
-                    <th>Opvoeder</th>
-                    <th>Lêer opgelaai</th>
-                    <th>Lesbeplanning Laaste Monitor</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Natuurwetenskappe</td>
-                    <td>Gr. 9</td>
-                    <td>Juffrou P Koopman & S Erasmus</td>
-                    <td><input type="file" accept=".doc,.docx,.xls,.xlsx,.pdf" onchange="updateDate(this, 'natuurwet')"></td>
-                    <td id="natuurwet">Geen lêer opgelaai nie</td>
-                </tr>
-                <tr>
-                    <td>Lewenswetenskappe</td>
-                    <td>Gr. 10-12</td>
-                    <td>S Erasmus en L Lubbe</td>
-                    <td><input type="file" accept=".doc,.docx,.xls,.xlsx,.pdf" onchange="updateDate(this, 'lewe')"></td>
-                    <td id="lewe">Geen lêer opgelaai nie</td>
-                </tr>
-                <tr>
-                    <td>Fisiese Wetenskappe</td>
-                    <td>Gr. 10-12</td>
-                    <td>Juffrou L Lubbe & Juffrou TK Pieterse</td>
-                    <td><input type="file" accept=".doc,.docx,.xls,.xlsx,.pdf" onchange="updateDate(this, 'fisiese')"></td>
-                    <td id="fisiese">Geen lêer opgelaai nie</td>
-                </tr>
-                <tr>
-                    <td>CAT</td>
-                    <td>Gr. 10-12</td>
-                    <td>Mnr. C Farmer</td>
-                    <td><input type="file" accept=".doc,.docx,.xls,.xlsx,.pdf" onchange="updateDate(this, 'cat')"></td>
-                    <td id="cat">Geen lêer opgelaai nie</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
+        <section id="vakke">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Vak</th>
+                        <th>Graad</th>
+                        <th>Opvoeder</th>
+                        <th>Lêer opgelaai</th>
+                        <th>Laaste Monitor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Natuurwetenskappe</td>
+                        <td>Gr. 9</td>
+                        <td>Juffrou P Koopman & S Erasmus</td>
+                        <td><input type="file" id="natuurwet" accept=".doc,.docx,.xls,.xlsx,.pdf" onchange="updateDate(this, 'natuurwet')"></td>
+                        <td id="natuurwet">Geen lêer opgelaai nie</td>
+                    </tr>
+                    <tr>
+                        <td>Lewenswetenskappe</td>
+                        <td>Gr. 10-12</td>
+                        <td>S Erasmus en L Lubbe</td>
+                        <td><input type="file" id="lewe" accept=".doc,.docx,.xls,.xlsx,.pdf" onchange="updateDate(this, 'lewe')"></td>
+                        <td id="lewe">Geen lêer opgelaai nie</td>
+                    </tr>
+                    <tr>
+                        <td>Fisiese Wetenskappe</td>
+                        <td>Gr. 10-12</td>
+                        <td>Juffrou L Lubbe & Juffrou TK Pieterse</td>
+                        <td><input type="file" id="fisiese" accept=".doc,.docx,.xls,.xlsx,.pdf" onchange="updateDate(this, 'fisiese')"></td>
+                        <td id="fisiese">Geen lêer opgelaai nie</td>
+                    </tr>
+                    <tr>
+                        <td>CAT</td>
+                        <td>Gr. 10-12</td>
+                        <td>Mnr. C Farmer</td>
+                        <td><input type="file" id="cat" accept=".doc,.docx,.xls,.xlsx,.pdf" onchange="updateDate(this, 'cat')"></td>
+                        <td id="cat">Geen lêer opgelaai nie</td>
+                    </tr>
+                    <!-- Voeg 'n ekstra ry vir Tegniese Wetenskappe (Gr. 10-11) -->
+                    <tr>
+                        <td>Tegniese Wetenskappe</td>
+                        <td>Gr. 10-11</td>
+                        <td>Juffrou TK Pieterse</td>
+                        <td><input type="file" id="tegnies" accept=".doc,.docx,.xls,.xlsx,.pdf" onchange="updateDate(this, 'tegnies')"></td>
+                        <td id="tegnies">Geen lêer opgelaai nie</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
 
     <footer>
         <p>&copy; 2025 Compliance Register | Webwerf ontwerp deur Mnr AR Visagie</p>
     </footer>
 
-    <!-- Firebase en script.js word laaste gelaai -->
-    <script type="module">
-        // Firebase-imports
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-        import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
-
-        // Firebase-konfigurasie
-        const firebaseConfig = {
-            apiKey: "AIzaSyCn5CyogcNbZ7DctUcGb87ypzX9aSvNfPc",
-            authDomain: "lesson-planner-cbfb3.firebaseapp.com",
-            projectId: "lesson-planner-cbfb3",
-            storageBucket: "lesson-planner-cbfb3.appspot.com",
-            messagingSenderId: "621619071513",
-            appId: "1:621619071513:web:9e94432f4b1226a5537888",
-            measurementId: "G-1L3MLCPHNZ"
-        };
-
-        // Firebase inisieer
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const storage = getStorage(app);
-
-        // Funksie om 'n nuwe les in Firestore by te voeg
-        async function voegLesBy() {
-            try {
-                await addDoc(collection(db, "lesse"), {
-                    vak: "Fisiese Wetenskappe",
-                    onderwyser: "Juffrou Pieterse",
-                    datum: new Date().toISOString(),
-                    status: "Geplande Les"
-                });
-                console.log("Les suksesvol bygevoeg!");
-            } catch (e) {
-                console.error("Fout met byvoeging:", e);
-            }
-        }
-
-        // Funksie om 'n lêer op te laai na Firebase Storage
-        async function laaiLêerOp(lêer) {
-            const lêerPad = `lesse/${lêer.name}`;
-            const lêerVerwysing = ref(storage, lêerPad);
-
-            try {
-                await uploadBytes(lêerVerwysing, lêer);
-                console.log(`Lêer suksesvol opgelaai: ${lêer.name}`);
-            } catch (e) {
-                console.error("Fout met lêer-oplaai:", e);
-            }
-        }
-
-        // Roep die funksies aan vir toetsing
-        voegLesBy();
-    </script>
-
     <script>
         // Funksie om lêeroplaai se datum by te werk
         function updateDate(inputElement, id) {
+            const row = inputElement.closest('tr'); // Verkry die ry waarin die lêer oplaai gebeur
+
             if (inputElement.files.length > 0) {
-                document.getElementById(id).innerText = "Lêer opgelaai op " + new Date().toLocaleDateString();
-                laaiLêerOp(inputElement.files[0]);  // Laai lêer op na Firebase Storage
+                const currentDate = new Date().toLocaleDateString();
+                document.getElementById(id).innerText = "Lêer opgelaai op " + currentDate;
+
+                // Vertoon 'n alert boodskap
+                alert("Lêer is suksesvol opgelaai op " + currentDate);
+
+                // Voeg die sukses visuele effek by
+                row.classList.add('success'); // Voeg 'n "success" klas by vir die animasie
             } else {
                 document.getElementById(id).innerText = "Geen lêer opgelaai nie";
+                row.classList.remove('success'); // Verwyder die sukses klas
             }
         }
     </script>
