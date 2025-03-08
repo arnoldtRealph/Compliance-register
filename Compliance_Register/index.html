@@ -4,103 +4,560 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compliance Register</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <header>
-        <h1>Compliance Register vir Lesbeplanning</h1>
-    </header>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            min-height: 100vh;
+            padding: 10px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border: 5px solid #2a4d7b;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-    <main>
-        <section id="department">
-            <h2>Wetenskappe Departement</h2>
-            <div class="department-buttons">
-                <button class="btn">Natuurwetenskappe</button>
-                <button class="btn">Lewenswetenskappe</button>
-                <button class="btn">Fisiese Wetenskappe</button>
-                <button class="btn">CAT</button>
-                <button class="btn">Tegniese Wetenskappe</button>
-            </div>
-        </section>
+        /* Top title bar */
+        .top-title {
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            padding: 15px;
+            border-radius: 10px 10px 0 0;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-between; /* Spasie tussen teks en logo */
+            align-items: flex-start; /* Belyn bo */
+            position: relative;
+        }
 
-        <section id="vakke">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Vak</th>
-                        <th>Graad</th>
-                        <th>Opvoeder</th>
-                        <th>Lêer opgelaai</th>
-                        <th>Laaste Monitor</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Natuurwetenskappe</td>
-                        <td>Gr. 9</td>
-                        <td>Juffrou P Koopman & S Erasmus</td>
-                        <td><input type="file" id="natuurwet" accept=".doc,.docx,.xls,.xlsx,.pdf" onchange="updateDate(this, 'natuurwet')"></td>
-                        <td id="natuurwet">Geen lêer opgelaai nie</td>
-                    </tr>
-                    <tr>
-                        <td>Lewenswetenskappe</td>
-                        <td>Gr. 10-12</td>
-                        <td>S Erasmus en L Lubbe</td>
-                        <td><input type="file" id="lewe" accept=".doc,.docx,.xls,.xlsx,.pdf" onchange="updateDate(this, 'lewe')"></td>
-                        <td id="lewe">Geen lêer opgelaai nie</td>
-                    </tr>
-                    <tr>
-                        <td>Fisiese Wetenskappe</td>
-                        <td>Gr. 10-12</td>
-                        <td>Juffrou L Lubbe & Juffrou TK Pieterse</td>
-                        <td><input type="file" id="fisiese" accept=".doc,.docx,.xls,.xlsx,.pdf" onchange="updateDate(this, 'fisiese')"></td>
-                        <td id="fisiese">Geen lêer opgelaai nie</td>
-                    </tr>
-                    <tr>
-                        <td>CAT</td>
-                        <td>Gr. 10-12</td>
-                        <td>Mnr. C Farmer</td>
-                        <td><input type="file" id="cat" accept=".doc,.docx,.xls,.xlsx,.pdf" onchange="updateDate(this, 'cat')"></td>
-                        <td id="cat">Geen lêer opgelaai nie</td>
-                    </tr>
-                    <!-- Voeg 'n ekstra ry vir Tegniese Wetenskappe (Gr. 10-11) -->
-                    <tr>
-                        <td>Tegniese Wetenskappe</td>
-                        <td>Gr. 10-11</td>
-                        <td>Juffrou TK Pieterse</td>
-                        <td><input type="file" id="tegnies" accept=".doc,.docx,.xls,.xlsx,.pdf" onchange="updateDate(this, 'tegnies')"></td>
-                        <td id="tegnies">Geen lêer opgelaai nie</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-    </main>
+        .title-container {
+            flex-grow: 1;
+            text-align: center; /* Sentraal belyn */
+        }
 
-    <footer>
-        <p>&copy; 2025 Compliance Register | Webwerf ontwerp deur Mnr AR Visagie</p>
-    </footer>
+        .top-title h1 {
+            font-size: 1.8rem;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
 
-    <script>
-        // Funksie om lêeroplaai se datum by te werk
-        function updateDate(inputElement, id) {
-            const row = inputElement.closest('tr'); // Verkry die ry waarin die lêer oplaai gebeur
+        .top-title .subheading {
+            font-size: 1rem;
+            font-style: italic;
+            color: #e0e7ff;
+            margin-top: 5px;
+        }
 
-            if (inputElement.files.length > 0) {
-                const currentDate = new Date().toLocaleDateString();
-                document.getElementById(id).innerText = "Lêer opgelaai op " + currentDate;
+        .top-title .logo {
+            width: 60px;
+            transition: transform 0.3s ease;
+        }
 
-                // Vertoon 'n alert boodskap
-                alert("Lêer is suksesvol opgelaai op " + currentDate);
+        .top-title .logo:hover {
+            transform: scale(1.1);
+        }
 
-                // Voeg die sukses visuele effek by
-                row.classList.add('success'); // Voeg 'n "success" klas by vir die animasie
-            } else {
-                document.getElementById(id).innerText = "Geen lêer opgelaai nie";
-                row.classList.remove('success'); // Verwyder die sukses klas
+        /* Sidebar styling */
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(45deg, #2a4d7b, #1e3c72);
+            color: white;
+            padding: 15px;
+            position: fixed;
+            top: 80px;
+            bottom: 10px;
+            left: -250px;
+            transition: left 0.3s ease;
+            border-radius: 10px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .sidebar.active {
+            left: 10px;
+        }
+
+        .sidebar h2 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            text-align: center;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar ul li {
+            margin: 10px 0;
+        }
+
+        .sidebar ul li a {
+            color: #e0e7ff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .sidebar ul li a:hover {
+            color: #2ecc71;
+        }
+
+        .sidebar-toggle {
+            position: fixed;
+            top: 10px;
+            left: 15px;
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1100;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .sidebar-toggle:hover {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            transform: translateY(-2px);
+        }
+
+        /* Content wrapper */
+        .content-wrapper {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            align-items: stretch;
+        }
+
+        /* Main content */
+        main {
+            background: white;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+            width: calc(100% - 20px);
+            max-width: 1100px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            animation: slideUp 0.8s ease-out;
+            margin: 0 auto;
+            flex-grow: 1;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid #ddd;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 0.85rem;
+        }
+
+        th {
+            background: linear-gradient(to right, #2ecc71, #27ae60);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #f8fafc;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Button styling */
+        .submit-btn {
+            padding: 8px 12px;
+            background: linear-gradient(45deg, #8B1A1A, #c0392b);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(45deg, #7A1414, #a93226);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Combined table section */
+        .vak-grade-opvoeder {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 2px solid #ddd;
+            border-left: 5px solid #2ecc71;
+        }
+
+        .vak-grade-opvoeder td {
+            background-color: #f4f4f4;
+        }
+
+        /* File input styling */
+        input[type="file"] {
+            padding: 5px;
+            background: #fff;
+            border: 2px dashed #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+            width: 100%;
+            font-size: 0.85rem;
+        }
+
+        input[type="file"]:hover {
+            border-color: #2ecc71;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            width: calc(100% - 20px);
+            text-align: center;
+            margin-top: 20px;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            body {
+                padding: 5px;
+                border: 3px solid #2a4d7b;
+            }
+
+            .top-title {
+                padding: 10px;
+                flex-direction: column; /* Stapel vertikaal op mobiel */
+                align-items: center;
+            }
+
+            .title-container {
+                text-align: center;
+                margin-bottom: 10px; /* Spasie onder teks */
+            }
+
+            .top-title h1 {
+                font-size: 1.5rem;
+                margin-bottom: 5px;
+            }
+
+            .top-title .subheading {
+                font-size: 0.9rem;
+            }
+
+            .top-title .logo {
+                width: 50px;
+            }
+
+            .sidebar {
+                width: 80%;
+                max-width: 250px;
+                left: -100%;
+                top: 60px;
+            }
+
+            .sidebar.active {
+                left: 5px;
+            }
+
+            .sidebar-toggle {
+                left: 10px;
+                top: 5px;
+                padding: 6px 10px;
+                font-size: 0.9rem;
+            }
+
+            .content-wrapper {
+                margin-top: 10px;
+            }
+
+            main, footer {
+                width: calc(100% - 10px);
+                margin: 0 auto;
+                padding: 10px;
+            }
+
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            th, td {
+                font-size: 0.75rem;
+                padding: 6px;
+                min-width: 80px;
+            }
+
+            .submit-btn {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
+
+            .vak-grade-opvoeder th, .vak-grade-opvoeder td {
+                font-size: 0.75rem;
+                padding: 6px;
             }
         }
-    </script>
 
+        /* Ekstra klein skerms (onder 480px) */
+        @media (max-width: 480px) {
+            .top-title h1 {
+                font-size: 1.2rem;
+            }
+
+            .top-title .subheading {
+                font-size: 0.8rem;
+            }
+
+            .top-title .logo {
+                width: 40px;
+            }
+
+            .sidebar {
+                width: 90%;
+                top: 50px;
+            }
+
+            .sidebar h2 {
+                font-size: 1.1rem;
+            }
+
+            .sidebar ul li a {
+                font-size: 0.8rem;
+            }
+
+            th, td {
+                font-size: 0.7rem;
+                padding: 5px;
+                min-width: 60px;
+            }
+
+            .submit-btn {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top title bar with logo on the right -->
+    <div class="top-title">
+        <div class="title-container">
+            <h1>Compliance Register vir Lesbeplanning</h1>
+            <p class="subheading">Wetenskappe Departement</p>
+        </div>
+        <img src="images/logo.jpeg" alt="Skool Logo" class="logo">
+    </div>
+
+    <!-- Sidebar with updated resource links -->
+    <div class="sidebar" id="sidebar">
+        <h2>Hulpbronne</h2>
+        <ul>
+            <li><a href="/resources/code_of_conduct.pdf" download="Skool_Gedragskode.pdf">Skool Gedragskode</a></li>
+            <li><a href="/resources/curriculum_natuurwetenskappe.pdf" download="Natuurwetenskappe_Kurrikulum.pdf">Natuurwetenskappe ATP</a></li>
+            <li><a href="/resources/curriculum_lewenswetenskappe.pdf" download="Lewenswetenskappe_Kurrikulum.pdf">Lewenswetenskappe ATP</a></li>
+            <li><a href="/resources/curriculum_fisiese_wetenskappe.pdf" download="Fisiese_Wetenskappe_Kurrikulum.pdf">Fisiese Wetenskappe ATP</a></li>
+            <li><a href="/resources/curriculum_cat.pdf" download="CAT_Kurrikulum.pdf">CAT ATP</a></li>
+            <li><a href="/resources/curriculum_tegniese_wetenskappe.pdf" download="Tegniese_Wetenskappe_Kurrikulum.pdf">Tegniese Wetenskappe ATP</a></li>
+            <li><a href="/resources/kurrikulum_sga_afhandelings_instrumente.pdf" download="Kurrikulum_en_SGA_Afhandelings_Instrumente.pdf">Kurrikulum en SGA afhandelings instrumente</a></li>
+            <li><a href="/resources/pre_and_post_mod_tools.pdf" download="Pre_and_Post_Mod_Tools.pdf">Pre-and post mod tools</a></li>
+            <li><a href="/resources/program_of_the_year.pdf" download="Program_of_the_Year.pdf">Program of the year</a></li>
+            <li><a href="/resources/getalle_per_vak.pdf" download="Getalle_per_Vak.pdf">Getalle per vak</a></li>
+            <li><a href="https://www.education.gov.za/" target="_blank">Dept. van Onderwys</a></li>
+        </ul>
+    </div>
+
+    <!-- Sidebar toggle button -->
+    <button class="sidebar-toggle" id="sidebarToggle">☰ Hulpbronne</button>
+
+    <!-- Content wrapper -->
+    <div class="content-wrapper">
+        <main>
+            <section id="vakke">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Vak</th>
+                            <th>Opvoeder</th>
+                            <th>Lêer opgelaai</th>
+                            <th>Laaste Monitor</th>
+                            <th>Aksie</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Natuurwetenskappe (Gr. 9)</td>
+                            <td>Juffrou P Koopman & S Erasmus</td>
+                            <td><input type="file" id="natuurwet" accept=".doc,.docx,.xls,.xlsx,.pdf" onchange="updateDate('natuurwet')"></td>
+                            <td id="natuurwet-monitor">Geen lêer opgelaai nie</td>
+                            <td><button class="submit-btn" onclick="submitFile('natuurwet')">Submit</button></td>
+                        </tr>
+                        <tr>
+                            <td>Lewenswetenskappe (Gr. 10-12)</td>
+                            <td>S Erasmus en L Lubbe</td>
+                            <td><input type="file" id="lewe" accept=".doc,.docx,.xls,.xlsx,.pdf" onchange="updateDate('lewe')"></td>
+                            <td id="lewe-monitor">Geen lêer opgelaai nie</td>
+                            <td><button class="submit-btn" onclick="submitFile('lewe')">Submit</button></td>
+                        </tr>
+                        <tr>
+                            <td>Fisiese Wetenskappe (Gr. 10-12)</td>
+                            <td>Juffrou L Lubbe & Juffrou TK Pieterse</td>
+                            <td><input type="file" id="fisiese" accept=".doc,.docx,.xls,.xlsx,.pdf" onchange="updateDate('fisiese')"></td>
+                            <td id="fisiese-monitor">Geen lêer opgelaai nie</td>
+                            <td><button class="submit-btn" onclick="submitFile('fisiese')">Submit</button></td>
+                        </tr>
+                        <tr>
+                            <td>CAT (Gr. 10-12)</td>
+                            <td>Mnr. C Farmer</td>
+                            <td><input type="file" id="cat" accept=".doc,.docx,.xls,.xlsx,.pdf" onchange="updateDate('cat')"></td>
+                            <td id="cat-monitor">Geen lêer opgelaai nie</td>
+                            <td><button class="submit-btn" onclick="submitFile('cat')">Submit</button></td>
+                        </tr>
+                        <tr>
+                            <td>Tegniese Wetenskappe (Gr. 10-11)</td>
+                            <td>Juffrou TK Pieterse</td>
+                            <td><input type="file" id="tegniese" accept=".doc,.docx,.xls,.xlsx,.pdf" onchange="updateDate('tegniese')"></td>
+                            <td id="tegniese-monitor">Geen lêer opgelaai nie</td>
+                            <td><button class="submit-btn" onclick="submitFile('tegniese')">Submit</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="vak-grade-opvoeder">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Vak</th>
+                            <th>Graad</th>
+                            <th>Opvoeder Verantwoordelik</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Natuurwetenskappe</td>
+                            <td>Gr. 9</td>
+                            <td>Juffrou P Koopman & S Erasmus</td>
+                        </tr>
+                        <tr>
+                            <td>Lewenswetenskappe</td>
+                            <td>Gr. 10-12</td>
+                            <td>S Erasmus en L Lubbe</td>
+                        </tr>
+                        <tr>
+                            <td>Fisiese Wetenskappe</td>
+                            <td>Gr. 10-12</td>
+                            <td>Juffrou L Lubbe & Juffrou TK Pieterse</td>
+                        </tr>
+                        <tr>
+                            <td>CAT</td>
+                            <td>Gr. 10-12</td>
+                            <td>Mnr. C Farmer</td>
+                        </tr>
+                        <tr>
+                            <td>Tegniese Wetenskappe</td>
+                            <td>Gr. 10-11</td>
+                            <td>Juffrou TK Pieterse</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <p>© 2025 Compliance Register | Webwerf ontwerp deur Mnr AR Visagie</p>
+    </footer>
+
+    <!-- Add JSConfetti library -->
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+    <script>
+        // Initialize JSConfetti
+        const jsConfetti = new JSConfetti();
+
+        function updateDate(id) {
+            const inputElement = document.getElementById(id);
+            const monitorElement = document.getElementById(id + '-monitor');
+
+            if (inputElement.files.length > 0) {
+                monitorElement.innerText = "Lêer opgelaai op " + new Date().toLocaleDateString();
+                monitorElement.style.color = "#2ecc71";
+                monitorElement.style.fontWeight = "bold";
+                alert("Lêer suksesvol opgelaai!");
+            } else {
+                monitorElement.innerText = "Geen lêer opgelaai nie";
+                monitorElement.style.color = "#e74c3c";
+                monitorElement.style.fontWeight = "normal";
+            }
+        }
+
+        function submitFile(id) {
+            const inputElement = document.getElementById(id);
+            if (inputElement.files.length > 0) {
+                alert("Lêer suksesvol ingedien!");
+                jsConfetti.addConfetti({
+                    emojis: ['📚', '✏️', '✅'],
+                    confettiNumber: 50,
+                    confettiRadius: 6,
+                });
+            } else {
+                alert("Kies asseblief eers 'n lêer om op te laai!");
+            }
+        }
+
+        // Sidebar toggle functionality
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+    </script>
 </body>
 </html>
