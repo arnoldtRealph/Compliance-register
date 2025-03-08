@@ -1,13 +1,18 @@
-function updateDate(input, vak) {
-    const cell = document.getElementById(vak);
-    const currentDate = new Date();
-    const formattedDate = currentDate.toLocaleDateString(); // Dit wys die datum in 'n leesbare formaat
+function updateDate(inputElement, id) {
+    const row = inputElement.closest('tr'); // Verkry die ry waarin die lêer oplaai gebeur
 
-    if (input.files.length > 0) {
-        // As 'n lêer opgelaai is, wys die datum
-        cell.textContent = `Lêer opgelaai op: ${formattedDate}`;
+    if (inputElement.files.length > 0) {
+        const currentDate = new Date().toLocaleDateString();
+        document.getElementById(id).innerText = "Lêer opgelaai op " + currentDate;
+
+        // Vertoon 'n alert boodskap
+        alert("Lêer is suksesvol opgelaai op " + currentDate);
+
+        // Voeg 'n groen agtergrondkleur vir suksesvolle opgawe
+        row.style.backgroundColor = '#d4edda'; // Groen agtergrondkleur
+        row.style.transition = 'background-color 0.5s ease'; // Vervaag effek
     } else {
-        // As geen lêer opgelaai is nie
-        cell.textContent = 'Geen lêer opgelaai nie';
+        document.getElementById(id).innerText = "Geen lêer opgelaai nie";
+        row.style.backgroundColor = ''; // Herstel die agtergrondkleur
     }
 }
