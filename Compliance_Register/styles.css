@@ -1,104 +1,145 @@
-/* Algemene styling */
+/* Algemene styl vir die bladsy */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f8ff; /* Ligblou agtergrond vir 'n vars wetenskaplike gevoel */
+    background-color: #f0f8ff; /* Leker ligblou agtergrondkleur */
 }
 
+/* Header styl */
 header {
-    background-color: #2a3d66; /* Donkerblou agtergrond vir 'n professionele voorkoms */
+    background-color: #4CAF50; /* Donkergroen vir die kop */
     color: white;
     text-align: center;
-    padding: 2rem 0;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-    margin: 0;
-    font-size: 2.5rem;
-    font-weight: bold;
+/* Hoof inhoud afdelings */
+main {
+    padding: 40px;
+    background-color: #ffffff; /* Wit agtergrond vir die inhoud */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 1100px;
 }
 
-h2 {
-    text-align: center;
-    font-size: 1.5rem;
-    margin: 2rem 0;
-    color: #2a3d66;
-}
-
-/* Wetenskappe Departement - knoppies */
-#department {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
+/* Afdeling vir die knoppies in die departement */
 .department-buttons {
     display: flex;
     justify-content: center;
-    gap: 1rem;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
 }
 
+/* Knoppies styl */
 .btn {
-    padding: 12px 20px;
-    font-size: 1.2rem;
-    background-color: #4a6fa5; /* Blou kleur vir die knoppies */
+    padding: 15px 30px;
+    background-color: #FF9800; /* Oranje kleur vir die knoppies */
     color: white;
     border: none;
-    border-radius: 50px; /* Ronde knoppies */
     cursor: pointer;
-    transition: background-color 0.3s;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 .btn:hover {
-    background-color: #3b5b83; /* Donkerder blou vir hover-effek */
+    background-color: #e68900; /* Donkerder oranje wanneer daar oor die knoppie beweeg word */
 }
 
-/* Tabel styling */
+/* Styl vir die tabel */
 table {
-    width: 90%;
-    margin: 3rem auto;
+    width: 100%;
     border-collapse: collapse;
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Skaduwee vir visuele diepte */
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9; /* Leker ligte agtergrond vir die tabel */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 th, td {
-    padding: 1.5rem;
-    text-align: center;
+    padding: 15px;
+    text-align: left;
     border: 1px solid #ddd;
-    font-size: 1.1rem;
 }
 
 th {
-    background-color: #4a6fa5; /* Ligtige blou vir die kop van die tabel */
+    background-color: #4CAF50; /* Groen vir die kop van die tabel */
     color: white;
-    font-weight: bold;
 }
 
-tr:nth-child(even) {
-    background-color: #f9f9f9; /* Ligter agtergrond vir alternatiewe rye */
+td {
+    background-color: #ffffff; /* Wit vir die data selle */
 }
 
 input[type="file"] {
-    font-size: 14px;
-    padding: 5px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    background-color: #f0f8ff;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
 }
 
-input[type="file"]:hover {
-    background-color: #d8e4f0; /* Ligte blou vir die hover-effek */
-}
-
-/* Footer styling */
+/* Footer */
 footer {
-    text-align: center;
-    background-color: #2a3d66;
+    background-color: #333; /* Donkergrys vir footer */
     color: white;
-    padding: 1rem;
+    text-align: center;
+    padding: 20px 0;
     position: relative;
     bottom: 0;
     width: 100%;
-    margin-top: 50px; /* Voegt meer spasie tussen die inhoud en footer by */
+    margin-top: 40px; /* Voeg ekstra spasie bo die footer */
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsief vir kleiner skerms */
+@media (max-width: 768px) {
+    .department-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    table, th, td {
+        font-size: 14px;
+    }
+
+    input[type="file"] {
+        width: 100%;
+    }
+}
+
+/* Groter suksesnotifikasie met animasie */
+tr.success {
+    background-color: #d4edda; /* Groen agtergrondkleur vir suksesvolle opgawe */
+    animation: showNotification 1s ease-out forwards; /* Animasie om die notifikasie mooi te vertoon */
+}
+
+/* Definieer die animasie vir die suksesnotifikasie */
+@keyframes showNotification {
+    0% {
+        background-color: #f4f4f4; /* Begin kleur (lig grys) */
+        transform: scale(0.95); /* Begin effek (klein) */
+    }
+    50% {
+        background-color: #d4edda; /* Groen vir sukses */
+        transform: scale(1.05); /* 'n Effek wat dit groter maak */
+    }
+    100% {
+        background-color: #d4edda; /* Eindig op groen */
+        transform: scale(1); /* Voltooi die animasie met normale grootte */
+    }
+}
+
+/* Optioneel: Voeg 'n klein groen rand om die lêeroplaai om te wys dat die lêer suksesvol opgelaai is */
+input[type="file"]:valid {
+    border: 2px solid #28a745; /* Groen rand wanneer die lêer suksesvol is */
+}
+
+input[type="file"]:invalid {
+    border: 2px solid #dc3545; /* Rood rand wanneer die lêer nie geldig is nie */
 }
